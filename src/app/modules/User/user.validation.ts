@@ -8,18 +8,15 @@ const userRegisterValidationSchema = z.object({
       .string({ required_error: 'Email is required!' })
       .trim()
       .email({ message: 'Please enter a valid email' }),
-    role: z.enum(['admin', 'user'], {
+    role: z.enum(['admin', 'user','parent'], {
       invalid_type_error: 'Enter a valid role',
     }),
-    password: z
-      .string()
-      .max(20, "Password can't be more than 20 characters!")
-      .optional(),
+  
     phone: z
       .string({ required_error: 'Phone number is required!' })
       .min(9, 'Please enter a valid phone!')
       .trim(),
-    address: z.string({ required_error: 'Address is required!' }).trim(),
+
   }),
 });
 

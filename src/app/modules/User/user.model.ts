@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import bcrypt from 'bcrypt';
+
 import { Schema, model } from 'mongoose';
-import config from '../../config';
+
 import { userTypes } from './user.constant';
 import { IUser, UserModel } from './user.interface';
 
@@ -17,10 +17,6 @@ const userSchema = new Schema<IUser, UserModel>(
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      select: 0,
-    },
     role: {
       required: true,
       type: String,
@@ -30,10 +26,18 @@ const userSchema = new Schema<IUser, UserModel>(
       type: String,
       required: true,
     },
-    address: {
+    organizationId: {
       type: String,
       required: true,
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+  /*   address: {
+      type: String,
+      required: true,
+    }, */
   },
   {
     timestamps: true,
@@ -41,23 +45,23 @@ const userSchema = new Schema<IUser, UserModel>(
 );
 
 // hashing the password before entering into db
-userSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
+// userSchema.pre('save', async function (next) {
+//   // eslint-disable-next-line @typescript-eslint/no-this-alias
+//   const user = this;
 
-  user.password = await bcrypt.hash(
-    user.password as string,
-    Number(config.bcrypt_salt_rounds),
-  );
+//   user.password = await bcrypt.hash(
+//     user.password as string,
+//     Number(config.bcrypt_salt_rounds),
+//   );
 
-  next();
-});
+//   next();
+// });
 
 // removing password after response
-userSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
-});
+// userSchema.post('save', function (doc, next) {
+//   doc.password = '';
+//   next();
+// });
 
 // checking if user exists by email
 userSchema.statics.isUserExistsByEmail = async function (email: string) {
@@ -65,11 +69,11 @@ userSchema.statics.isUserExistsByEmail = async function (email: string) {
 };
 
 // comparing passwords
-userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword,
-) {
-  return await bcrypt.compare(plainTextPassword, hashedPassword);
-};
+// userSchema.statics.isPasswordMatched = async function (
+//   plainTextPassword,
+//   hashedPassword,
+// ) {
+//   return await bcrypt.compare(plainTextPassword, hashedPassword);
+// };
 
 export const User = model<IUser, UserModel>('User', userSchema);

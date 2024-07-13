@@ -5,12 +5,17 @@ import { OrganizationValidations } from './organization.validation';
 
 const router = express.Router();
 
+
 router
   .route('/')
-  .get(OrganizationControllers.getSingleOrganization)
+  //.get(OrganizationControllers.getSingleOrganization)
   .post(
     validateRequest(OrganizationValidations.createOrganizationValidationSchema),
     OrganizationControllers.createOrganization,
   );
+router
+  .route('/:id')
+  .get(OrganizationControllers.getSingleOrganization)
+ 
 
 export const OrganizationRoutes = router;

@@ -7,19 +7,20 @@ import { USER_ROLE } from './user.constant';
 export interface IUser {
   name: string;
   email: string;
-  role: 'admin' | 'user';
-  password?: string;
+  role: 'admin' | 'user' | 'parent';
+ // password?: string;
   phone: string;
-  address: string;
+  organizationId: string;
+  isDeleted: boolean;
 }
 
 // User Static Model
 export interface UserModel extends Model<IUser> {
   isUserExistsByEmail(email: string): Promise<IUser>;
-  isPasswordMatched(
-    plainTextPassword: string,
-    hashedPassword: string,
-  ): Promise<boolean>;
+  // isPasswordMatched(
+  //   plainTextPassword: string,
+  //   hashedPassword: string,
+  // ): Promise<boolean>;
 }
 
 // SignIn User interface
