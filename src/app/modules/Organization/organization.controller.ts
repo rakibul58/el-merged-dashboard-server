@@ -16,6 +16,7 @@ const createOrganization = catchAsync(async (req, res) => {
   });
 });
 
+
 const getSingleOrganization = catchAsync(async (req, res) => {
   const result = await OrganizationServices.getSingleOrganizationFromDB(
     req.params.id,

@@ -1,6 +1,7 @@
-export const userTypes = ['user', 'admin'];
+export const userTypes = ['student', 'admin','parent'];
 
 export const USER_ROLE = {
-  user: 'user',
+  user: 'student',
   admin: 'admin',
+  parent: 'parent'
 } as const;

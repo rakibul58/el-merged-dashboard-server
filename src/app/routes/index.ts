@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { OrganizationRoutes } from '../modules/Organization/organization.route';
+import { UserRoutes } from '../modules/User/user.route';
 
 const router = Router();
 
@@ -8,6 +9,10 @@ const moduleRoutes = [
   {
     path: '/organizations',
     route: OrganizationRoutes,
+  },
+  {
+    path: '/user',
+    route: UserRoutes,
   }
 ];
 
